@@ -7,6 +7,13 @@ module.exports = {
       addStyleResource(config.module.rule('scss').oneOf(type))
     );
   },
+  configureWebpack: {
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, 'src'),
+      },
+    },
+  },
 };
 
 function addStyleResource(rule) {

@@ -5,6 +5,7 @@ import store from './store';
 import ability from './ability';
 import './plugins';
 import './styles/main.scss';
+import './require-components';
 
 Vue.config.productionTip = false;
 
