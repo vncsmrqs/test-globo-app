@@ -1,0 +1,5 @@
+@mixin viewport($media: 0px) {
+  @media (min-width: $media) {
+    @content;
+  }
+}
