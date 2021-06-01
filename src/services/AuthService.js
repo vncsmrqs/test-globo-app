@@ -3,7 +3,7 @@ import Http from '@/util/http';
 export default class AuthService {
   constructor() {
     this.api = new Http({
-      baseUrl: process.env.BASE_URL,
+      baseUrl: process.env.VUE_APP_BASE_API,
     });
   }
 

@@ -1,9 +1,13 @@
-import { authService } from '@/services';
+import AuthService from '@/services/AuthService';
+import jwtDecode from 'jwt-decode';
 
 const defaultUserData = () => ({
   email: '',
   accessLevel: '',
 });
+
+const localUser = localStorage.getItem('auth.user') || "{}";
+const localToken = localStorage.getItem('auth.token');
 
 export const types = {
   SIGN_IN_START: 'SIGN_IN_START',
@@ -16,8 +20,11 @@ export const types = {
 
 const state = {
   auth: {
-    user: defaultUserData(),
-    authenticated: false,
+    user: {
+      ...defaultUserData(),
+      ...JSON.parse(localUser),
+    },
+    token: localToken,
   },
   signIn: {
     loading: false,
@@ -30,10 +37,10 @@ const state = {
 };
 
 const getters = {
-  isAuthenticated: (state) => state.auth.authenticated,
+  isAuthenticated: (state) => !!state.auth.token,
   user: (state) => state.auth.user,
-  abilities: (state) => [state.user.data.accessLevel],
-  isAdmin: (state) => state.user.data.accessLevel === 'administrador',
+  abilities: (state) => [state.auth.user.accessLevel],
+  isAdmin: (state) => state.auth.user.accessLevel === 'administrador',
   signInError: (state) => state.signIn.error,
   loadingSignIn: (state) => state.signIn.loading,
   signOutError: (state) => state.signOut.error,
@@ -45,19 +52,23 @@ const mutations = {
     state.signIn.loading = true;
     state.signIn.error = null;
   },
-  [types.SIGN_IN_SUCCESS](state, user) {
+  [types.SIGN_IN_SUCCESS](state, token) {
     state.signIn.loading = false;
     state.signIn.error = null;
+    const user = jwtDecode(token);
+    console.log({ user });
     state.auth.user = {
       ...defaultUserData(),
       ...user,
     };
-    state.auth.authenticated = true;
+    state.auth.token = token;
+    localStorage.setItem('auth.user', JSON.stringify(state.auth.user));
+    localStorage.setItem('auth.token', state.auth.token);
   },
   [types.SIGN_IN_ERROR](state, error) {
     state.signIn.loading = false;
     state.signIn.error = error;
-    state.auth.authenticated = true;
+    state.auth.token = null;
     state.auth.user = defaultUserData();
   },
   [types.SIGN_OUT_START](state) {
@@ -68,7 +79,9 @@ const mutations = {
     state.signOut.loading = false;
     state.signOut.error = null;
     state.auth.user = defaultUserData();
-    state.auth.authenticated = false;
+    state.auth.token = null;
+    localStorage.removeItem('auth.user');
+    localStorage.removeItem('auth.token');
   },
   [types.SIGN_OUT_ERROR](state, error) {
     state.signOut.loading = false;
@@ -80,9 +93,10 @@ const actions = {
   async signIn({ commit }, { email, password }) {
     commit(types.SIGN_IN_START);
     try {
-      const { user } = await authService.signIn({ email, password });
-      commit(types.SIGN_IN_SUCCESS, user);
-      return user;
+      const authService = new AuthService();
+      const { token } = await authService.signIn({ email, password });
+      commit(types.SIGN_IN_SUCCESS, token);
+      return token;
     } catch (error) {
       commit(types.SIGN_IN_ERROR, error);
       throw error;

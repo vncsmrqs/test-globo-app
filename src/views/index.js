@@ -16,6 +16,9 @@ export default [
       {
         path: '/',
         name: 'dashboard',
+        meta: {
+          pageTitle: 'Dashboard',
+        },
         component: () => import('./Dashboard.vue'),
       },
       ...admin,

@@ -1,4 +1,4 @@
-import { userService } from '@/services/admin';
+import UserService from '@/services/UserService';
 
 export const types = {
   // FECTH USERS
@@ -40,6 +40,7 @@ const mutations = {
 const actions = {
   async fetchUsers({ commit }) {
     commit(types.FETCH_USERS_START);
+    const userService = new UserService();
     return await userService
       .index()
       .then((users) => {

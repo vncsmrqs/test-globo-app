@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = false;
 
-const BASE_URL = process.env.BASE_URL;
+const BASE_URL = process.env.VUE_APP_BASE_API;
 const TIMEOUT = process.env.TIMEOUT;
 
 export default class Http {
@@ -16,8 +16,7 @@ export default class Http {
     const api = axios.create({
       baseURL: baseUrl || BASE_URL,
       headers: {
-        'Content-Type': 'application/json;',
-        Accept: 'application/json;',
+        'Content-Type': 'application/json',
         ...headers,
       },
       timeout: timeout || TIMEOUT,

@@ -9,7 +9,7 @@ export default [
       {
         path: '',
         meta: {
-          ability: 'admin',
+          ability: 'administrador',
         },
         name: 'admin.user.index',
         component: () => import('./Index'),

@@ -16,12 +16,10 @@
     :class="{ 'left-0': opened, '-left-100': !opened }"
   >
     <div class="h-full overflow-y-auto p-2">
-      <div>Logo</div>
       <div class="flex items-center px-2 py-4">
         <div class="w-20 h-20 flex-shrink-0 rounded-full bg-gray-300"></div>
         <div class="ml-2 w-full">
-          <div class="font-bold text-lg">{{ userFirstName }}</div>
-          <div class="-mt-1 text-xs text-blue-500">Ver perfil</div>
+          <div class="font-bold text-lg">{{ username }}</div>
           <span
             v-if="isAdmin"
             class="
@@ -37,7 +35,7 @@
             ADMINISTRADOR
           </span>
           <span
-            v-else-if="isStudent"
+            v-else
             class="
               inline-block
               mt-1
@@ -48,14 +46,14 @@
               text-white text-sm
             "
           >
-            ALUNO
+            FUNCIONÁRIO
           </span>
         </div>
       </div>
       <ul>
         <li
-          v-for="item in menuList"
-          v-if="canAccessRoute(item)"
+          v-for="(item, index) in menuList"
+          :key="index"
           @click="handleClose"
         >
           <component :is="item.path ? 'router-link' : 'div'" :to="item.path">
@@ -92,7 +90,7 @@ import { types as appMutations } from '@/store/app';
 export default {
   name: 'TheNavigationDrawer',
   data: () => ({
-    menuList: [
+    allMenuList: [
       {
         title: 'Dashboard',
         icon: 'home',
@@ -101,14 +99,15 @@ export default {
       {
         title: 'Usuários',
         icon: 'user',
-        path: { name: 'admin.course.index' },
-        ability: 'index@course-management',
+        path: { name: 'admin.user.index' },
+        ability: 'administrador',
       },
     ],
   }),
   computed: {
     ...mapGetters('auth', {
       user: 'user',
+      isAdmin: 'isAdmin',
     }),
     ...mapGetters('app', {
       navigationDrawer: 'navigationDrawer',
@@ -116,6 +115,13 @@ export default {
     opened() {
       return this.navigationDrawer.opened;
     },
+    menuList() {
+      return this.allMenuList.filter(this.canAccessRoute)
+    },
+    username() {
+      return this.user.email.split('@')?.[0];
+    },
+
   },
   watch: {
     opened(opened) {
