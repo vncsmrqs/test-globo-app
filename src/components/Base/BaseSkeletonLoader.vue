@@ -14,7 +14,7 @@ export default {
 .base-skeleton-loader {
   position: relative;
   overflow: hidden;
-  background: rgba(100, 100, 100, .05);
+  background: rgba(100, 100, 100, 0.05);
   cursor: progress;
   width: 100%;
 

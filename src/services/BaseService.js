@@ -8,7 +8,6 @@ export default class BaseService {
       onError: handleError,
     });
     const token = localStorage.getItem('auth.token');
-    console.log(token);
     this.options = {
       headers: {
         'x-access-token': token,

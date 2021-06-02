@@ -8,7 +8,9 @@
     ></label>
     <div class="base-input__wrapper" :class="styles">
       <slot name="prepend" />
-      <input v-model="localValue" v-bind="$attrs" />
+      <select v-model="localValue" v-bind="$attrs">
+        <slot></slot>
+      </select>
       <slot name="append" />
     </div>
     <div v-if="$slots.validation" class="">
@@ -20,7 +22,7 @@
 <script>
 export default {
   inheritAttrs: false,
-  name: 'BaseInput',
+  name: 'BaseSelect',
   props: {
     value: {
       type: [String, Number],
@@ -66,7 +68,7 @@ export default {
       @apply ring;
     }
 
-    input {
+    select {
       @apply w-full bg-transparent h-12 px-4 py-2;
 
       &:focus {

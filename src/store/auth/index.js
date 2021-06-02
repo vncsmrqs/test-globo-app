@@ -6,7 +6,7 @@ const defaultUserData = () => ({
   accessLevel: '',
 });
 
-const localUser = localStorage.getItem('auth.user') || "{}";
+const localUser = localStorage.getItem('auth.user') || '{}';
 const localToken = localStorage.getItem('auth.token');
 
 export const types = {
@@ -56,7 +56,6 @@ const mutations = {
     state.signIn.loading = false;
     state.signIn.error = null;
     const user = jwtDecode(token);
-    console.log({ user });
     state.auth.user = {
       ...defaultUserData(),
       ...user,

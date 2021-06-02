@@ -42,7 +42,6 @@ export default {
     handleKeyUp(event) {
       if (event.key === this.closeKey) {
         event.stopImmediatePropagation();
-        console.log(event);
         this.handleClose();
       }
     },

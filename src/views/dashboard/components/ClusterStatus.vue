@@ -1,8 +1,14 @@
 <template>
   <base-card class="p-4 flex flex-col" shadow>
     <h2 class="font-bold text-lg mb-4">Status do cluster</h2>
-    <div :class="clusterStatusClass" class="p-4 rounded-lg border flex items-center h-full justify-center">
-      <div class="w-4 h-4 rounded-full" :class="[`bg-${clusterStatusColor}`]"></div>
+    <div
+      :class="clusterStatusClass"
+      class="p-4 rounded-lg border flex items-center h-full justify-center"
+    >
+      <div
+        class="w-4 h-4 rounded-full"
+        :class="[`bg-${clusterStatusColor}`]"
+      ></div>
       <div class="ml-2">{{ clusterStatusText }}</div>
     </div>
   </base-card>
@@ -17,7 +23,7 @@ export default {
       required: true,
       validator(status) {
         const isValid = ['green', 'red', 'yellow'].includes(status);
-        if(!isValid) {
+        if (!isValid) {
           console.warn(
             `Invalid prop "${status}", available values are "green", "red", "yellow".`
           );
@@ -63,6 +69,4 @@ export default {
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

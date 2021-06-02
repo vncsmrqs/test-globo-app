@@ -1,5 +1,8 @@
 <template>
-  <span class="inline-block px-2 text-center rounded-md text-white text-sm" :class="themeClasses">
+  <span
+    class="inline-block px-2 text-center rounded-md text-white text-sm"
+    :class="themeClasses"
+  >
     {{ label }}
   </span>
 </template>
@@ -32,11 +35,9 @@ export default {
         `border border-${this.theme}`,
         `text-${this.theme}`,
       ];
-    }
+    },
   },
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

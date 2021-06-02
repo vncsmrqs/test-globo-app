@@ -6,13 +6,24 @@
         <base-card
           v-for="i in 3"
           :key="i"
-          class="col-span-full lg:col-span-3 xl:col-span-2 h-64 p-4 flex flex-col"
+          class="
+            col-span-full
+            lg:col-span-3
+            xl:col-span-2
+            h-64
+            p-4
+            flex flex-col
+          "
           shadow
         >
           <div class="w-32 mb-4">
-            <base-skeleton-loader class="rounded-lg h-10"></base-skeleton-loader>
+            <base-skeleton-loader
+              class="rounded-lg h-10"
+            ></base-skeleton-loader>
           </div>
-          <base-skeleton-loader class="rounded-lg h-full"></base-skeleton-loader>
+          <base-skeleton-loader
+            class="rounded-lg h-full"
+          ></base-skeleton-loader>
         </base-card>
       </template>
       <template v-else>
@@ -30,7 +41,10 @@
           chart-id="memory-usage-chart"
           title="Consumo de memória"
         />
-        <cluster-status :status="clusterStatusData" class="col-span-full xl:col-span-2 xl:col-span-2" />
+        <cluster-status
+          :status="clusterStatusData"
+          class="col-span-full xl:col-span-2 xl:col-span-2"
+        />
       </template>
     </div>
   </div>
@@ -64,20 +78,24 @@ export default {
       const { labels, data } = this.healthMetrics.data.cpu;
       return {
         labels,
-        series: [{
-          name: 'CPU (%)',
-          data: data || [],
-        }],
+        series: [
+          {
+            name: 'CPU (%)',
+            data: data || [],
+          },
+        ],
       };
     },
     memoryChartData() {
       const { labels, data } = this.healthMetrics.data.memory;
       return {
         labels,
-        series: [{
-          name: 'Memória (%)',
-          data: data.map((num) => parseFloat(num).toFixed(2)),
-        }],
+        series: [
+          {
+            name: 'Memória (%)',
+            data: data.map((num) => parseFloat(num).toFixed(2)),
+          },
+        ],
       };
     },
   },

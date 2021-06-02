@@ -24,11 +24,7 @@
         </div>
       </div>
       <ul>
-        <li
-          v-for="(item, index) in menuList"
-          :key="index"
-          @click="handleClose"
-        >
+        <li v-for="(item, index) in menuList" :key="index" @click="handleClose">
           <component :is="item.path ? 'router-link' : 'div'" :to="item.path">
             <base-button
               class="w-full hover:bg-gray-100"
@@ -91,12 +87,11 @@ export default {
       return this.navigationDrawer.opened;
     },
     menuList() {
-      return this.allMenuList.filter(this.canAccessRoute)
+      return this.allMenuList.filter(this.canAccessRoute);
     },
     username() {
       return this.user.email.split('@')?.[0];
     },
-
   },
   watch: {
     opened(opened) {

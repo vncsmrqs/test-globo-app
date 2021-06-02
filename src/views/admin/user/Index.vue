@@ -1,7 +1,12 @@
 <template>
   <div>
     <div class="flex justify-end mb-4">
-      <base-button class="bg-primary w-auto text-white mr-2" ring>
+      <base-button
+        class="bg-primary w-auto text-white mr-2"
+        :to="{ name: 'admin.user.create' }"
+        link
+        ring
+      >
         <base-icon icon="plus" />
         <span>Novo usuário</span>
       </base-button>
@@ -15,9 +20,13 @@
           shadow
         >
           <div class="w-64 mb-4">
-            <base-skeleton-loader class="rounded-lg h-10"></base-skeleton-loader>
+            <base-skeleton-loader
+              class="rounded-lg h-10"
+            ></base-skeleton-loader>
           </div>
-          <base-skeleton-loader class="rounded-lg h-full"></base-skeleton-loader>
+          <base-skeleton-loader
+            class="rounded-lg h-full"
+          ></base-skeleton-loader>
         </base-card>
       </template>
       <template v-else>
@@ -32,7 +41,11 @@
             <role-label :role="user.accessLevel" />
           </div>
           <div class="col-span-full lg:col-span-4 flex justify-end">
-            <base-button class="border border-primary text-primary mr-2" icon ring>
+            <base-button
+              class="border border-primary text-primary mr-2"
+              icon
+              ring
+            >
               <base-icon icon="pen" />
             </base-button>
             <base-button class="border border-primary text-primary" icon ring>
