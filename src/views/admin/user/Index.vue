@@ -48,10 +48,21 @@
             >
               <base-icon icon="pen" />
             </base-button>
-            <base-button class="border border-primary text-primary" icon ring>
+
+            <base-button
+              class="border border-primary text-primary"
+              @click="showDeleteUser"
+              icon
+              ring
+            >
               <base-icon icon="trash" />
             </base-button>
           </div>
+          <confirm-delete-modal
+            :user="user"
+            :show="deleteUser"
+            @close="closeDeleteUser"
+          />
         </base-card>
       </template>
     </div>
@@ -61,10 +72,14 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import RoleLabel from '../../../components/RoleLabel';
+import ConfirmDeleteModal from './components/ConfirmDeleteModal';
 
 export default {
   name: 'AdminUserIndex',
-  components: { RoleLabel },
+  components: { ConfirmDeleteModal, RoleLabel },
+  data: () => ({
+    deleteUser: false,
+  }),
   computed: {
     ...mapGetters('admin/user', {
       users: 'users',
@@ -80,6 +95,12 @@ export default {
     ...mapActions('admin/user', {
       fetchUsers: 'fetchUsers',
     }),
+    showDeleteUser() {
+      this.deleteUser = true;
+    },
+    closeDeleteUser() {
+      this.deleteUser = false;
+    },
   },
   mounted() {
     this.fetchUsers();
