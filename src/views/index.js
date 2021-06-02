@@ -19,7 +19,7 @@ export default [
         meta: {
           pageTitle: 'Dashboard',
         },
-        component: () => import('./Dashboard.vue'),
+        component: () => import('./dashboard/Dashboard.vue'),
       },
       ...admin,
     ],

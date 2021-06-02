@@ -5,14 +5,16 @@ export default {
 </script>
 
 <template>
-  <div class="base-skeleton-loader"></div>
+  <div class="base-skeleton-loader">
+    <slot></slot>
+  </div>
 </template>
 
 <style lang="scss" scoped>
 .base-skeleton-loader {
   position: relative;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(100, 100, 100, .05);
   cursor: progress;
   width: 100%;
 
@@ -20,7 +22,7 @@ export default {
     background: linear-gradient(
       90deg,
       hsla(0, 0%, 100%, 0),
-      hsla(0, 0%, 100%, 0.05),
+      rgba(100, 100, 100, 0.1),
       hsla(0, 0%, 100%, 0)
     );
     animation: loading 1.5s infinite;

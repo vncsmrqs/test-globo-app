@@ -1,5 +1,18 @@
 import HealthCheckService from '@/services/HealthCheckService';
 
+const defaultHealthMetricsData = () => ({
+  cpu: {
+    labels: [],
+    data: [],
+  },
+  memory: {
+    labels: [],
+    data: [],
+  },
+  cluster: {
+    status: null,
+  },
+});
 export const types = {
   // FECTH HEALTH CHECK
   FETCH_HEALTH_CHECK_START: 'FETCH_HEALTH_CHECK_START',
@@ -9,7 +22,7 @@ export const types = {
 
 const state = {
   fetchHealthCheck: {
-    data: [],
+    data: defaultHealthMetricsData(),
     loading: false,
     error: null,
   },
@@ -28,7 +41,10 @@ const mutations = {
   },
   [types.FETCH_HEALTH_CHECK_SUCCESS](state, healthMetrics) {
     state.fetchHealthCheck.loading = false;
-    state.fetchHealthCheck.data = healthMetrics;
+    state.fetchHealthCheck.data = {
+      ...defaultHealthMetricsData(),
+      ...healthMetrics,
+    };
     state.fetchHealthCheck.error = null;
   },
   [types.FETCH_HEALTH_CHECK_ERROR](state, error) {

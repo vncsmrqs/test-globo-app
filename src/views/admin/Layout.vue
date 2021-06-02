@@ -10,7 +10,7 @@
 <script>
 import { mapGetters, mapMutations } from 'vuex';
 import { types as appMutations } from '@/store/app';
-import TheHeader from './components/TheHeader';
+import TheHeader from '@/components/TheHeader';
 
 export default {
   name: 'AdminLayout',
