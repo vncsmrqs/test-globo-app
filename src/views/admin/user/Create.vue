@@ -80,6 +80,12 @@
     <base-modal-loader :loading="isStoringUser">
       Cadastrando...
     </base-modal-loader>
+    <base-modal-error v-if="canShowError" :show="true" @close="closeError">
+      {{ storeUserError.message }}
+    </base-modal-error>
+    <base-modal-success v-if="canShowSuccess" :show="true">
+      Sucesso ao criar usuário!
+    </base-modal-success>
   </div>
 </template>
 
@@ -99,6 +105,8 @@ export default {
       email: '',
       accessLevel: '',
     },
+    canShowError: false,
+    canShowSuccess: false,
   }),
   computed: {
     ...mapGetters('admin/user', {
@@ -119,10 +127,26 @@ export default {
           fields: this.form,
         });
 
+        await this.showSuccess();
+
         this.$router.push({ name: 'admin.user.index' });
       } catch (e) {
-        alert(e.message);
+        this.showError();
       }
+    },
+    showError() {
+      this.canShowError = true;
+    },
+    closeError() {
+      this.canShowError = false;
+    },
+    showSuccess() {
+      this.canShowSuccess = true;
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve();
+        }, 3000);
+      });
     },
   },
   mounted() {
