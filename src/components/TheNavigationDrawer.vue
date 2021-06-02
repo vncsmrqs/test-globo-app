@@ -20,34 +20,7 @@
         <div class="w-20 h-20 flex-shrink-0 rounded-full bg-gray-300"></div>
         <div class="ml-2 w-full">
           <div class="font-bold text-lg">{{ username }}</div>
-          <span
-            v-if="isAdmin"
-            class="
-              inline-block
-              mt-1
-              px-2
-              text-center
-              rounded-md
-              bg-red-400
-              text-white text-sm
-            "
-          >
-            ADMINISTRADOR
-          </span>
-          <span
-            v-else
-            class="
-              inline-block
-              mt-1
-              px-2
-              text-center
-              rounded-md
-              bg-cyan-400
-              text-white text-sm
-            "
-          >
-            FUNCIONÁRIO
-          </span>
+          <role-label :role="user.accessLevel" />
         </div>
       </div>
       <ul>
@@ -86,9 +59,11 @@
 <script>
 import { mapGetters, mapActions, mapMutations } from 'vuex';
 import { types as appMutations } from '@/store/app';
+import RoleLabel from './RoleLabel';
 
 export default {
   name: 'TheNavigationDrawer',
+  components: { RoleLabel },
   data: () => ({
     allMenuList: [
       {

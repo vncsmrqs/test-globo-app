@@ -16,7 +16,9 @@ import {
   faArrowRight,
   faEllipsisV,
   faTrash,
+  faEdit,
   faTimes,
+  faPen,
 } from '@fortawesome/free-solid-svg-icons';
 
 import { faPlayCircle } from '@fortawesome/free-regular-svg-icons';
@@ -40,6 +42,8 @@ library.add({
   faEllipsisV,
   faTrash,
   faTimes,
+  faEdit,
+  faPen,
 });
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
