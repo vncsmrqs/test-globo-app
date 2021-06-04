@@ -75,7 +75,7 @@ export default {
       return this.healthMetrics.error;
     },
     clusterStatusData() {
-      return this.healthMetrics.data.cluster.status;
+      return this.healthMetrics.data.cluster.status || 'no-info';
     },
     cpuChartData() {
       const { labels, data } = this.healthMetrics.data.cpu;

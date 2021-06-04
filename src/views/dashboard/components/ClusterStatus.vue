@@ -22,10 +22,10 @@ export default {
       type: String,
       required: true,
       validator(status) {
-        const isValid = ['green', 'red', 'yellow'].includes(status);
+        const isValid = ['green', 'red', 'yellow', 'no-info'].includes(status);
         if (!isValid) {
           console.warn(
-            `Invalid prop "${status}", available values are "green", "red", "yellow".`
+            `Invalid prop "${status}", available values are "green", "red", "yellow" or "no-info".`
           );
           return false;
         }
