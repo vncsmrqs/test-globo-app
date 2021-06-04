@@ -12,6 +12,9 @@
         <span class="hidden lg:inline-block">Novo usuário</span>
       </base-button>
     </div>
+    <base-resource-error v-if="!!error" class="mb-4">
+      Erro ao listar usuários: {{ error.message }}
+    </base-resource-error>
     <div class="grid grid-cols-6 gap-4">
       <template v-if="loading">
         <base-card
@@ -76,10 +79,11 @@
 import { mapGetters, mapActions } from 'vuex';
 import RoleLabel from '../../../components/RoleLabel';
 import ConfirmDeleteModal from './components/ConfirmDeleteModal';
+import BaseResourceError from '../../../components/Base/BaseResourceError';
 
 export default {
   name: 'AdminUserIndex',
-  components: { ConfirmDeleteModal, RoleLabel },
+  components: { BaseResourceError, ConfirmDeleteModal, RoleLabel },
   data: () => ({
     deleteUser: false,
   }),
