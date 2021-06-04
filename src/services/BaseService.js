@@ -1,5 +1,6 @@
 import Http from '@/util/http';
 import store from '@/store';
+import NetworkError from '../util/errors/network-error';
 
 export default class BaseService {
   constructor() {
@@ -16,7 +17,11 @@ export default class BaseService {
   }
 }
 
-const handleError = (error) => {
+export const handleError = (error) => {
+  if (error.message === 'Network error') {
+    throw new NetworkError('Tente em alguns minutos.');
+  }
+
   const code = parseInt(error.response && error.response.status);
 
   if (code === 401) {
