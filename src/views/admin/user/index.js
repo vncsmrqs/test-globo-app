@@ -19,6 +19,14 @@ export default [
         name: 'admin.user.create',
         component: () => import('./Create'),
       },
+      {
+        meta: {
+          pageTitle: 'Editar usuário',
+        },
+        path: ':email',
+        name: 'admin.user.edit',
+        component: () => import('./Edit'),
+      },
     ],
   },
 ];

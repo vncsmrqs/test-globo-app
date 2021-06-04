@@ -1,10 +1,11 @@
 <template>
   <component
     @click="$emit('click')"
-    :is="link ? 'router-link' : 'button'"
-    class="base-button"
+    :is="to ? 'router-link' : 'button'"
+    class="base-button rounded"
     :class="styles"
     v-bind="$attrs"
+    :to="to"
     :disabled="false"
   >
     <slot></slot>
@@ -16,9 +17,9 @@ export default {
   name: 'BaseButton',
   inheritAttrs: false,
   props: {
-    link: {
-      type: Boolean,
-      default: false,
+    to: {
+      type: [Object, String],
+      default: '',
     },
     ring: {
       type: Boolean,
@@ -46,9 +47,9 @@ export default {
       return [
         {
           'h-12 px-4 inline-flex items-center': !this.icon && !this.fab,
-          'inline-flex items-center justify-center': !this.icon && this.fab,
-          'h-12 w-12': this.icon,
-          'w-14 h-14 lg:w-auto lg:h-12 lg:p-4 fixed bottom-0 right-0 lg:static rounded-full lg:rounded mr-3 mb-3 lg:m-0':
+          'inline-flex items-center justify-center': this.icon || this.fab,
+          'h-12 w-12': this.icon && !this.fab,
+          'shadow-lg w-14 h-14 lg:w-auto lg:h-12 lg:p-4 fixed bottom-0 right-0 lg:static rounded-full lg:rounded mr-8 mb-4 lg:m-0':
             this.fab,
           'focus:ring-4 ring-primary-light': this.ring,
           'border border-primary': this.border,
@@ -61,7 +62,7 @@ export default {
 
 <style lang="scss">
 .base-button {
-  @apply font-bold text-center duration-200 rounded;
+  @apply font-bold text-center duration-200;
   @apply outline-none;
   &:focus {
     @apply outline-none;

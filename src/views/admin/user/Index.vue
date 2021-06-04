@@ -1,17 +1,18 @@
 <template>
-  <div>
+  <div class="px-4 lg:px-0 py-4 lg:py-0">
     <div class="flex justify-end mb-4">
       <base-button
-        class="bg-primary w-auto text-white mr-2"
+        class="bg-primary text-white"
         :to="{ name: 'admin.user.create' }"
         link
+        fab
         ring
       >
         <base-icon icon="plus" />
-        <span>Novo usuário</span>
+        <span class="hidden lg:inline-block">Novo usuário</span>
       </base-button>
     </div>
-    <div class="px-4 lg:px-0 py-4 lg:py-0 grid grid-cols-6 gap-4">
+    <div class="grid grid-cols-6 gap-4">
       <template v-if="loading">
         <base-card
           v-for="i in 3"
@@ -42,7 +43,9 @@
           </div>
           <div class="col-span-full lg:col-span-4 flex justify-end">
             <base-button
-              class="border border-primary text-primary mr-2"
+              class="text-gray-400 hover:bg-primary-light hover:text-primary"
+              :to="{ name: 'admin.user.edit', params: { email: user.email } }"
+              link
               icon
               ring
             >
@@ -50,7 +53,7 @@
             </base-button>
 
             <base-button
-              class="border border-primary text-primary"
+              class="text-gray-400 hover:bg-primary-light hover:text-primary"
               @click="showDeleteUser"
               icon
               ring
