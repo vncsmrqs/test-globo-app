@@ -2,6 +2,9 @@
   <div>
     <the-header class="lg:px-8 lg:mt-8" />
     <div class="lg:px-8 lg:mt-8 p-4 lg:p-8 grid grid-cols-6 gap-4 lg:gap-8">
+      <base-resource-error v-if="!!error" class="col-span-full">
+        Erro ao buscar dados do dashboard: {{ error.message }}
+      </base-resource-error>
       <template v-if="loading">
         <base-card
           v-for="i in 3"
